@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Super Admin | Verify</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="super-admin.css">
+  <link rel="stylesheet" href="super-admin-bright.css">
+</head>
+<body>
+  <main class="admin-app">
+    <section class="auth-card" id="loginView" aria-labelledby="loginTitle">
+      <span class="eyebrow">Verify Operations</span>
+      <h1 id="loginTitle">Super Admin Control Center</h1>
+      <p>Sign in with a Super Admin account to continue.</p>
+      <form id="loginForm" class="stack-form">
+        <label>Email<input id="loginEmail" type="email" autocomplete="username" required></label>
+        <label>Password<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+        <button class="button primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> Sign in</button>
+        <p class="form-message" id="loginMessage" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="dashboardView" hidden>
+      <header class="topbar">
+        <a class="brand-lockup" href="index.html" aria-label="Verify home"><span class="brand-mark"><i class="fa-solid fa-shield-check"></i></span><span><strong>Verify</strong><small>Operations</small></span></a>
+        <div class="topbar-title"><span class="eyebrow">Super Admin</span><h1>Control Center</h1></div>
+        <div class="topbar-actions"><span class="session-user" id="sessionUser"></span><a class="button ghost public-site-link" href="index.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> Public site</a><button class="button ghost" id="logoutButton" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button></div>
+      </header>
+      <div class="admin-utility" aria-label="Current platform context">
+        <div class="admin-utility__item"><i class="fa-regular fa-calendar"></i><span id="adminDate">Loading date...</span><button type="button" data-copy-target="adminDate" aria-label="Copy date"><i class="fa-regular fa-copy"></i></button></div>
+        <div class="admin-utility__item"><i class="fa-regular fa-clock"></i><span id="adminTime">Loading time...</span><button type="button" data-copy-target="adminTime" aria-label="Copy time"><i class="fa-regular fa-copy"></i></button></div>
+        <div class="admin-utility__item"><i class="fa-solid fa-location-dot"></i><span id="adminLocation">Location unavailable</span><button type="button" data-copy-target="adminLocation" aria-label="Copy location"><i class="fa-regular fa-copy"></i></button></div>
+      </div>
+      <div class="app-grid">
+        <aside class="side-nav" aria-label="Admin sections">
+          <div class="side-nav__label">Monitor</div>
+          <button class="nav-item active" data-section="overview"><i class="fa-solid fa-chart-pie"></i> Overview</button>
+          <button class="nav-item" data-section="complaints"><i class="fa-solid fa-inbox"></i> Review Queue</button>
+          <button class="nav-item" data-section="overview" data-focus="recentActivity"><i class="fa-solid fa-clock-rotate-left"></i> Activity</button>
+          <div class="side-nav__label">Manage</div>
+          <button class="nav-item" data-section="manufacturers"><i class="fa-solid fa-building"></i> Manufacturers</button>
+          <button class="nav-item" data-section="products"><i class="fa-solid fa-boxes-stacked"></i> Products</button>
+          <button class="nav-item" data-section="complaints"><i class="fa-solid fa-flag"></i> Complaints</button>
+          <button class="nav-item" data-section="actions" data-focus="reports"><i class="fa-solid fa-file-export"></i> Reports &amp; Exports</button>
+          <button class="nav-item" data-section="actions" data-focus="security"><i class="fa-solid fa-lock"></i> Security</button>
+          <button class="nav-item" data-section="actions"><i class="fa-solid fa-sliders"></i> Actions</button>
+        </aside>
+        <div class="content-area">
+          <div class="toolbar"><label class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input id="globalSearch" type="search" placeholder="Search products or manufacturers" aria-label="Search products or manufacturers"></label><button class="button ghost" id="refreshButton" type="button"><i class="fa-solid fa-rotate"></i> Refresh</button></div>
+          <p class="status-message" id="statusMessage" role="status"></p>
+
+          <section class="dashboard-section active" data-view="overview">
+            <div class="section-heading"><div><span class="eyebrow">Platform pulse</span><h2>Overview</h2></div><span class="neutral-note">Operational signals only</span></div>
+            <div class="summary-grid" id="summaryGrid"></div>
+            <div class="panel"><div class="panel-heading"><h3>Needs attention</h3><button class="text-button" data-section-link="complaints">View complaints <i class="fa-solid fa-arrow-right"></i></button></div><div id="overviewAttention" class="empty-state">Loading platform signals...</div></div>
+            <div class="overview-grid">
+              <div class="panel"><div class="panel-heading"><h3>Review queue</h3><button class="text-button" data-section-link="complaints">Open queue <i class="fa-solid fa-arrow-right"></i></button></div><div id="reviewQueue" class="signal-list">Loading review signals...</div></div>
+              <div class="panel"><div class="panel-heading"><h3>Recent activity</h3><span class="neutral-note">From current platform data</span></div><div id="recentActivity" class="signal-list">Loading activity...</div></div>
+            </div>
+          </section>
+
+          <section class="dashboard-section" data-view="manufacturers" hidden>
+            <div class="section-heading"><div><span class="eyebrow">Account directory</span><h2>Manufacturers</h2></div></div>
+            <div class="panel table-wrap"><table><thead><tr><th>Manufacturer</th><th>Contact</th><th>Products</th><th>Premium / Regular</th><th>Status</th><th>Registered</th></tr></thead><tbody id="manufacturersTable"></tbody></table></div>
+          </section>
+
+          <section class="dashboard-section" data-view="products" hidden>
+            <div class="section-heading"><div><span class="eyebrow">Catalog oversight</span><h2>Products</h2></div><div class="filter-row"><button class="filter active" data-mode="">All</button><button class="filter" data-mode="valued">Premium</button><button class="filter" data-mode="regular">Regular</button><button class="filter" data-status="under_review">Under review</button></div></div>
+            <div class="panel table-wrap"><table><thead><tr><th>Product</th><th>Manufacturer</th><th>Type</th><th>Status</th><th>Verifications</th><th>Reports</th></tr></thead><tbody id="productsTable"></tbody></table></div>
+          </section>
+
+          <section class="dashboard-section" data-view="complaints" hidden>
+            <div class="section-heading"><div><span class="eyebrow">Daily threshold</span><h2>Complaints</h2></div><span class="neutral-note">Products with 5+ reports today</span></div>
+            <div class="panel table-wrap"><table><thead><tr><th>Product</th><th>Manufacturer</th><th>Reports today</th><th>Verifications</th><th>Signal</th></tr></thead><tbody id="complaintsTable"></tbody></table></div>
+          </section>
+
+          <section class="dashboard-section" data-view="actions" hidden>
+            <div class="section-heading"><div><span class="eyebrow">Operational controls</span><h2>Actions</h2></div><span class="neutral-note" id="liveUpdateStatus">Live updates enabled</span></div>
+            <div class="actions-grid">
+              <article class="control-panel"><div class="control-panel__heading"><i class="fa-solid fa-boxes-stacked"></i><div><h3>Product management</h3><p>Edit, delete, suspend, reactivate, and inspect verification history.</p></div></div><div class="control-panel__controls"><select id="actionProductSelect" aria-label="Select product"><option value="">Select product</option></select><button class="button ghost" data-control="product-edit" type="button">Edit</button><button class="button danger" data-control="product-suspend" type="button">Suspend</button><button class="button ghost" data-control="product-reactivate" type="button">Reactivate</button><button class="button ghost" data-control="product-history" type="button">Verification history</button><button class="button danger" data-control="product-delete" type="button">Delete</button></div></article>
+              <article class="control-panel"><div class="control-panel__heading"><i class="fa-solid fa-building"></i><div><h3>Manufacturer management</h3><p>Review profiles, subscriptions, and account state.</p></div></div><div class="control-panel__controls"><select id="actionManufacturerSelect" aria-label="Select manufacturer"><option value="">Select manufacturer</option></select><button class="button ghost" data-control="manufacturer-profile" type="button">View profile</button><button class="button ghost" data-control="manufacturer-subscription" type="button">Subscription</button><button class="button primary" data-control="manufacturer-approve" type="button">Approve</button><button class="button danger" data-control="manufacturer-suspend" type="button">Suspend</button></div></article>
+              <article class="control-panel" id="security"><div class="control-panel__heading"><i class="fa-solid fa-shield-halved"></i><div><h3>Review and security</h3><p>Open platform signals and moderation controls without automatic suspension.</p></div></div><div class="control-panel__controls"><button class="button ghost" data-section-link="products" type="button">Verification log review</button><button class="button ghost" data-section-link="complaints" type="button">Customer review moderation</button><button class="button ghost" data-control="security" type="button">Security tools</button><button class="button ghost" data-control="notifications" type="button">Notifications</button></div></article>
+              <article class="control-panel" id="reports"><div class="control-panel__heading"><i class="fa-solid fa-file-export"></i><div><h3>Reports and subscriptions</h3><p>Export the currently loaded operational records for review.</p></div></div><div class="control-panel__controls"><button class="button primary" data-control="export-products" type="button">Export products</button><button class="button ghost" data-control="export-manufacturers" type="button">Export manufacturers</button><button class="button ghost" data-control="subscription-management" type="button">Subscription management</button></div></article>
+            </div>
+            <div class="panel actions-log-panel"><div class="panel-heading"><h3>Action status</h3><span class="neutral-note">No automatic suspensions</span></div><div id="actionsStatus" class="empty-state">Select a control to begin.</div></div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detailDialog" class="detail-dialog"><button class="dialog-close" data-close-dialog type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button><div id="detailContent"></div></dialog>
+  <dialog id="actionDialog" class="action-dialog"><form method="dialog" id="actionForm"><button class="dialog-close" data-close-dialog type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button><span class="eyebrow">Controlled action</span><h2 id="actionTitle">Deactivate</h2><p id="actionDescription"></p><label>Reason note<textarea id="actionReason" rows="4" minlength="3" maxlength="1000" required placeholder="Explain why this action is necessary."></textarea></label><div class="dialog-actions"><button class="button ghost" value="cancel" type="submit">Cancel</button><button class="button danger" id="actionConfirm" value="default" type="submit">Confirm action</button></div></form></dialog>
+  <script src="super-admin.js"></script>
+</body>
+</html>

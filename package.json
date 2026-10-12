@@ -1,0 +1,16 @@
+{
+  "name": "v-real-livereload",
+  "version": "1.0.0",
+  "description": "LiveReload server for v.real project",
+  "main": "livereload-server.js",
+  "scripts": {
+    "start": "node livereload-server.js",
+    "dev": "node livereload-server.js"
+  },
+  "dependencies": {
+    "ws": "^8.14.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

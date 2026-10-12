@@ -1,0 +1,29 @@
+<section class="featured-ads" aria-label="Featured products">
+    <div class="featured-ads__viewport" id="featuredAdsViewport">
+        <div class="featured-ads__track" id="featuredAdsTrack"></div>
+    </div>
+
+    <button type="button" class="featured-ads__arrow featured-ads__arrow--prev" id="featuredAdsPrev" aria-label="Previous featured product">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button type="button" class="featured-ads__arrow featured-ads__arrow--next" id="featuredAdsNext" aria-label="Next featured product">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <div class="featured-ads__dots" id="featuredAdsDots" aria-label="Featured product navigation"></div>
+</section>
+
+<div class="manufacturer-contact-modal" id="manufacturerContactModal" aria-hidden="true">
+    <div class="manufacturer-contact-modal__backdrop" data-contact-close></div>
+    <div class="manufacturer-contact-modal__card" role="dialog" aria-modal="true" aria-labelledby="manufacturer-contact-title">
+        <button type="button" class="manufacturer-contact-modal__close" id="manufacturerContactClose" aria-label="Close manufacturer contact options">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3 id="manufacturer-contact-title">Contact Manufacturer</h3>
+        <p class="manufacturer-contact-modal__subtitle" id="manufacturerContactSubtitle"></p>
+        <div class="manufacturer-contact-modal__channels" id="manufacturerContactChannels"></div>
+        <p class="manufacturer-contact-modal__notice">
+            you are leaving Verify to contact the manufacturer through their official channel. Verify is not responsible for transactions outside the platform.
+        </p>
+    </div>
+</div>

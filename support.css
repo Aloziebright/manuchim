@@ -1,0 +1,52 @@
+@import url("page-style.css");
+@import url("footer.css");
+
+body {
+	background: linear-gradient(135deg, #f4fbff 0%, #eefaf3 100%);
+}
+
+.hero {
+	background: linear-gradient(135deg, #e9f8ff 0%, #edfdf3 55%, #f8fffb 100%);
+	color: #0f172a;
+}
+
+.hero p {
+	color: #334155;
+}
+
+.hero-card {
+	background: #ffffff;
+	border-color: rgba(15, 23, 42, 0.12);
+}
+
+.btn-secondary {
+	background: #e2f3ff;
+	color: #0f172a;
+	border-color: rgba(15, 23, 42, 0.16);
+}
+
+/* Support page readability overrides */
+.hero-card h3 {
+	color: #0f172a;
+}
+
+.contact-item {
+	background: #ffffff;
+	color: #0f172a;
+}
+
+.contact-item span {
+	color: #334155;
+}
+
+.page-card {
+	background: #ffffff;
+}
+
+.page-card h3 {
+	color: #0f172a;
+}
+
+.page-card p {
+	color: #334155;
+}

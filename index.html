@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Verification | v.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="shared-navbar"></div>
+    <script src="shared-navbar.js"></script>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- <h2 class="section-title">Featured Products</h2> -->
+            
+            <!-- Ads section loaded from ads-section.html -->
+            <div id="ads-placeholder"></div>
+
+            <section class="testimonial-strip" aria-label="Customer testimonials">
+                <div class="testimonial-strip__frame">
+                    <p class="testimonial-strip__eyebrow">Trusted by brands worldwide</p> <br>
+                    <blockquote class="testimonial-strip__quote" id="testimonial-quote">
+                        “V.com helped us reclaim our supply chain <br> and stop fake products from reaching our customers.”
+                    </blockquote>
+                    <div class="testimonial-strip__meta" id="testimonial-meta">
+                        <strong>Sarah M.</strong>
+                        <span>Founder, <br> Northstar Apparel</span>
+                    </div>                    <div class="testimonial-strip__dots" id="testimonial-dots"></div>                </div>
+            </section>
+            
+        </div>
+    </main>
+
+    <!-- Camera Modal -->
+    <div class="camera-modal">
+        <div class="camera-container">
+            <button type="button" class="close-camera">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>Scan Product Code</h3>
+            <div class="camera-preview">
+                <i class="fas fa-camera fa-3x"></i>
+            </div>
+            <p class="camera-status" role="status" aria-live="polite">Point your camera at a product code.</p>
+            <div class="camera-controls">
+                <button type="button" class="camera-btn capture-btn">Capture Code</button>
+                <button type="button" class="camera-btn cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification Result Popup -->
+    <div class="verification-popup" id="verification-popup" aria-hidden="true">
+        <div class="verification-popup__backdrop"></div>
+        <div class="verification-popup__card" id="verification-popup-card" role="alertdialog" aria-modal="true" aria-labelledby="verification-popup-title">
+            <button type="button" class="verification-popup__close" id="verification-popup-close" aria-label="Close verification result">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="verification-popup__header">
+                <span class="verification-popup__icon" id="verification-popup-icon">
+                    <i class="fas fa-check-circle"></i>
+                </span>
+                <div class="verification-popup__heading">
+                    <h3 id="verification-popup-title">Verification Result</h3>
+                    <p id="verification-popup-subtitle">Review product verification details below.</p>
+                </div>
+            </div>
+            <div class="verification-popup__details" id="verification-popup-details"></div>
+            <button type="button" class="verification-popup__additional-btn" id="additional-information-btn" hidden>Additional Information</button>
+            <div class="verification-popup__additional-panel" id="additional-information-panel" hidden></div>
+            <div class="verification-popup__actions" id="verification-popup-actions" style="display:none;">
+                <button type="button" class="verification-popup__report-btn" id="report-product-btn" style="display:none;">Report Product</button>
+                <button type="button" class="verification-popup__download-btn" id="download-product-pdf-btn">Download Product Information (PDF)</button>
+                <p class="verification-popup__download-note" id="download-product-pdf-note">Only manufacturer-approved product information will be included.</p>
+            </div>
+            <div class="verification-popup__feedback" id="verification-popup-feedback" style="display:none;">
+                <h4>⭐ We'd Love Your Feedback</h4>
+                <p>We hope you've enjoyed using this product.</p>
+                <p>If you have a moment, we'd love to hear about your experience.</p>
+                <button type="button" class="verification-popup__feedback-btn" id="leave-review-btn">⭐ Leave a Review</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Product Confirmation Modal -->
+    <div class="report-confirmation-modal" id="report-confirmation-modal" aria-hidden="true">
+        <div class="report-confirmation-modal__backdrop" data-report-close></div>
+        <div class="report-confirmation-modal__card" role="dialog" aria-modal="true" aria-labelledby="report-confirmation-title">
+            <button type="button" class="report-confirmation-modal__close" id="report-confirmation-close" aria-label="Close report confirmation">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="report-confirmation-modal__header">
+                <div class="report-confirmation-modal__icon">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <div>
+                    <h3 id="report-confirmation-title">Report Responsibly</h3>
+                </div>
+            </div>
+            <p class="report-confirmation-modal__text">
+                By continuing, you confirm that your report is truthful, accurate, and submitted in good faith based on your genuine experience with this product.
+            </p>
+            <p class="report-confirmation-modal__text">
+                Reports are submitted through your email application. Please use a valid email address so Verify can contact you if necessary.
+            </p>
+            <p class="report-confirmation-modal__text report-confirmation-modal__text--warning">
+                False or malicious reports may result in action under Verify's policies.
+            </p>
+            <div class="report-confirmation-modal__actions">
+                <button type="button" class="report-confirmation-modal__cancel" id="report-confirmation-cancel">Cancel</button>
+                <button type="button" class="report-confirmation-modal__continue" id="report-confirmation-continue">Continue to Report</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Request Modal -->
+    <div class="camera-modal" id="review-request-modal">
+        <div class="camera-container review-modal-container">
+            <button type="button" class="close-camera" id="review-request-close" aria-label="Close review request modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>⭐ Leave a Review</h3>
+            <p class="review-modal-copy">Choose how you would like to receive your review link.</p>
+            <div class="form-group" style="margin-top:14px;">
+                <label class="form-label">Delivery Method</label>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    <label style="display:flex;align-items:center;gap:8px;"><input type="radio" name="review-delivery-method" value="email"> <span>Email</span></label>
+                    <label style="display:flex;align-items:center;gap:8px;"><input type="radio" name="review-delivery-method" value="whatsapp"> <span>WhatsApp</span></label>
+                    <label style="display:flex;align-items:center;gap:8px;"><input type="radio" name="review-delivery-method" value="both"> <span>Email &amp; WhatsApp</span></label>
+                </div>
+            </div>
+            <div class="form-group" id="review-request-email-group" style="margin-top:12px;display:none;">
+                <label class="form-label" for="review-request-email">Email Address</label>
+                <input type="email" class="form-input" id="review-request-email" placeholder="you@example.com">
+            </div>
+            <div class="form-group" id="review-request-whatsapp-group" style="margin-top:12px;display:none;">
+                <label class="form-label" for="review-request-whatsapp">WhatsApp Number</label>
+                <input type="tel" class="form-input" id="review-request-whatsapp" placeholder="e.g. +256700000000">
+            </div>
+            <div class="form-group" style="margin-top:12px;">
+                <label class="form-label" for="review-request-name">Customer Name (Optional)</label>
+                <input type="text" class="form-input" id="review-request-name" placeholder="Your name">
+            </div>
+            <div class="camera-controls" style="margin-top:16px;">
+                <button type="button" class="camera-btn capture-btn" id="review-request-submit">Submit Review Request</button>
+                <button type="button" class="camera-btn cancel-btn" id="review-request-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+
+  <footer class="modern-footer" role="contentinfo" aria-label="Site footer">
+    <div class="modern-footer__top">
+      <div class="modern-footer__brand">
+        <div class="modern-footer__logo">
+          <i class="fas fa-shield-check"></i>
+          <span>Verifi</span>
+        </div>
+        <p class="modern-footer__motto">Trusted commerce, verified confidence.</p>
+      </div>
+
+      <div class="modern-footer__contact">
+        <h3>Visit us</h3>
+        <p><i class="fas fa-map-marker-alt"></i> 18 `Ogborhill, Aba, Abia State</p>
+      </div>
+
+      <div class="modern-footer__rating">
+        <h3>Customer love</h3>
+        <div class="modern-footer__stars" aria-label="Rated 5 out of 5 stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p>4.9/5 from 12,000+ verified customers</p>
+        <div class="modern-footer__socials">
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="modern-footer__bottom">
+      <span>© 2026 Verifi Technologies Ltd. All rights reserved.</span>
+      <div class="modern-footer__links">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="support.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="page.js"></script>
+  <script src="ads-loader.js"></script>
+  <script src="populate-ads.js"></script>
+  <script src="ad-carousel.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <script src="review-service.js"></script>
+    <script src="v.js"></script>
+</body>
+</html>
